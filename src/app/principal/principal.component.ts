@@ -12,9 +12,12 @@ import { ServiceTodosService } from '../service-todos.service';
 export class PrincipalComponent implements OnInit {
   
   tasks: Tasks[] = [];
+  taskscomplete: Tasks[] = [];
+  tasksActive: Tasks[] = [];
   msgAlert: string = '';
   showme = true;
   count: number;
+  ListType = 'todos';
   
   constructor(private serviceTasks: ServiceTodosService) {
     serviceTasks.getTasks().subscribe((content) => (this.tasks = content));
@@ -51,18 +54,22 @@ export class PrincipalComponent implements OnInit {
     return this.tasks.filter((task) => task.status).length;
   }
   //filtros
- 
-  listCompleteTasks()
+  listAllTasks(type: string)
   {
-    
-    this.tasks = this.tasks.filter((task) => task.status == true);
-    
+    this.ListType = type;
   }
-  listActiveTasks()
+  listCompleteTasks(type:string)
   {
+    console.log("ss");
+    this.ListType = type;
+    this.taskscomplete = this.tasks.filter((task) => task.status);
+      
+  }
+  listActiveTasks(type:string)
+  {
+    this.ListType = type;
+    this.tasksActive = this.tasks.filter((task) => !task.status);
    
-    this.tasks = this.tasks.filter((task) => task.status == false);
-    
   }
 
   ngOnInit() {

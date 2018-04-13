@@ -3,8 +3,8 @@
 <div class="alert">
     <p>{{msgAlert}}</p>
 </div>
-<div class="container">
-    <div class="row">
+<div class="container-fluid" >
+    <div class="row" >
         <div class="col-md-12"> <input type="text"
                    placeholder="What needs to be done?"
                    class="form-control"
@@ -13,25 +13,59 @@
     </div>
     <br>
 
+    <div class="container-tasks-list" [ngSwitch]="ListType">
+        <div class="list" *ngSwitchCase="'todos'">
+                <div class="row"
+                *ngFor="let task of tasks" >
+               <div class="col-md-4"><input type="checkbox"
+                          class="form-control"
+                          [checked]="task.status"
+                          (click)="editTask(task.id, this.$event)"></div>
+               <div class="col-md-4">{{task.name}}</div>
+               <div class="col-md-4"><button (click)="deleteTask(task.id)"
+                           class="btn btn-info">x</button></div>
+        
+        
+           </div>
+        </div>
+        <div class="list" *ngSwitchCase="'Complete'">
+                <div class="row"
+                *ngFor="let task of taskscomplete" >
+               <div class="col-md-4"><input type="checkbox"
+                          class="form-control"
+                          [checked]="task.status"
+                          (click)="editTask(task.id, this.$event)"></div>
+               <div class="col-md-4">{{task.name}}</div>
+               <div class="col-md-4"><button (click)="deleteTask(task.id)"
+                           class="btn btn-info">x</button></div>
+        
+        
+           </div>
+        </div>
 
-    <div class="row"
-         *ngFor="let task of tasks">
-        <div class="col-md-4"><input type="checkbox"
-                   class="form-control"
-                   [checked]="task.status"
-                   (click)="editTask(task.id, this.$event)"></div>
-        <div class="col-md-4">{{task.name}}</div>
-        <div class="col-md-4"><button (click)="deleteTask(task.id)"
-                    class="btn btn-info">x</button></div>
-
+        <div class="list" *ngSwitchCase="'tasksActive'">
+                <div class="row"
+                *ngFor="let task of tasksActive" >
+               <div class="col-md-4"><input type="checkbox"
+                          class="form-control"
+                          [checked]="task.status"
+                          (click)="editTask(task.id, this.$event)"></div>
+               <div class="col-md-4">{{task.name}}</div>
+               <div class="col-md-4"><button (click)="deleteTask(task.id)"
+                           class="btn btn-info">x</button></div>
+        
+        
+           </div>
+        </div>
 
     </div>
+
     <br>
     <div class="row">
-        <div class="col-md-2">{{countTasks()}} complete </div>
-        <div class="col-md-3"> <button (click)="listAllTasks()" class="btn btn-success">All</button ></div>
-        <div class="col-md-3"><button (click)="listActiveTasks()" class="btn btn-success">Active</button></div>
-        <div class="col-md-3"> <button (click)="listCompleteTasks()" class="btn btn-success">Complete</button></div>
+        <div class="col-md-3">{{countTasks()}} complete </div>
+        <div class="col-md-3"> <button (click)="listAllTasks('todos')" class="btn btn-success">All</button ></div>
+        <div class="col-md-3"><button (click)="listActiveTasks('tasksActive')" class="btn btn-success">Active</button></div>
+        <div class="col-md-3"> <button (click)="listCompleteTasks('Complete')" class="btn btn-success">Complete</button></div>
       
     </div>
 </div>
