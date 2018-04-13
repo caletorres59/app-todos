@@ -1,17 +1,2 @@
-.container
-{
-    width: 50%;
-    height: auto;
-    margin-left: 150px;
-    padding: 10px;
-    
-}
-div.container > div:nth-child > span > button{
-    margin-left: 10px;
-}
-.filters
-{
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
-}
+
+
